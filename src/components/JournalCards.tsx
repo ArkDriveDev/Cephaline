@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle,IonPopover,IonContent} from '@ionic/react';
 import { Journal } from '../types';
 
 interface JournalCardsProps {
@@ -12,9 +12,13 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
       {journals.map((journal) => (
         <IonCard key={journal.id} style={{ margin: 0 }}>
           <IonCardHeader>
-            <IonCardTitle style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
+            <IonCardTitle style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'Cyan' }} id="hover-trigger">
               {journal.title}
             </IonCardTitle>
+
+            <IonPopover trigger="hover-trigger" triggerAction="hover" side='top'>
+              <IonContent class="ion-padding">Click To Open Journal</IonContent>
+            </IonPopover>
           </IonCardHeader>
           <IonCardContent style={{ paddingTop: '0' }}>
             <p style={{ margin: '8px 0', color: '#666' }}>{journal.description}</p>
