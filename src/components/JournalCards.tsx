@@ -10,15 +10,14 @@ interface JournalCardsProps {
 
 const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
   const history = useHistory();
-
-  // Split journals into rows of 3
+  
   const rows = [];
   for (let i = 0; i < journals.length; i += 3) {
     rows.push(journals.slice(i, i + 3));
   }
 
   const handleCardClick = (journalId: string) => {
-    history.push(`/journal/${journalId}`);
+    history.push(`/Cephaline/Journals/${journalId}`);
   };
 
   return (
@@ -34,6 +33,7 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
               }}
               onClick={() => handleCardClick(journal.id)}
             >
+              {/* Rest of your card JSX remains the same */}
               <IonCard className="journal-card" style={{
                 backgroundColor: journal.cardColor,
               }}>

@@ -9,7 +9,7 @@ import { Journal, NewJournalData } from '../types';
 // Key for localStorage
 const JOURNAL_STORAGE_KEY = 'journals_app_data';
 
-const Home: React.FC = () => {
+const Cephalib: React.FC = () => {
   const [journals, setJournals] = useState<Journal[]>(() => {
     // Load from localStorage on initial render
     const savedJournals = localStorage.getItem(JOURNAL_STORAGE_KEY);
@@ -48,9 +48,10 @@ const Home: React.FC = () => {
           <NewButton onSave={handleAddJournal} />
         </div>
         <JournalCards journals={journals} />
+        
       </IonContent>
     </IonPage>
   );
 };
 
-export default Home;
+export default Cephalib;
