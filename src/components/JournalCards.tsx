@@ -1,11 +1,14 @@
 import React from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle,IonPopover, IonContent} from '@ionic/react';
 
 function JournalCards() {
   return (
     <IonCard>
       <IonCardHeader>
-        <IonCardTitle color='secondary'>Programming 1</IonCardTitle>
+        <IonCardTitle id="hover-trigger" color='secondary'>Programming 1</IonCardTitle>
+            <IonPopover trigger="hover-trigger" triggerAction="hover">
+        <IonContent class="ion-padding">Open Journal</IonContent>
+</IonPopover>
         <IonCardSubtitle>Fundamentals of Programming</IonCardSubtitle>
       </IonCardHeader>
 
