@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPopover, IonContent, IonModal } from '@ionic/react';
+import React from 'react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPopover } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 import { Journal } from '../types';
 import './JournalCards.css';
-import JournalBookView from '../pages/JournalBookView'; // We'll create this next
 
 interface JournalCardsProps {
   journals: Journal[];
 }
 
 const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
-  const [selectedJournal, setSelectedJournal] = useState<Journal | null>(null);
+  const history = useHistory();
 
   // Split journals into rows of 3
   const rows = [];
   for (let i = 0; i < journals.length; i += 3) {
     rows.push(journals.slice(i, i + 3));
   }
+
+  const handleCardClick = (journalId: string) => {
+    history.push(`/journal/${journalId}`);
+  };
 
   return (
     <div className="journal-grid-container">
@@ -28,7 +32,7 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
               style={{
                 zIndex: row.length - colIndex
               }}
-              onClick={() => setSelectedJournal(journal)}
+              onClick={() => handleCardClick(journal.id)}
             >
               <IonCard className="journal-card" style={{
                 backgroundColor: journal.cardColor,
@@ -46,7 +50,7 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
                     triggerAction="hover"
                     side="top"
                   >
-                    <IonContent class="ion-padding">Click To Open Journal</IonContent>
+                    <div className="ion-padding">Click To Open Journal</div>
                   </IonPopover>
                 </IonCardHeader>
 
@@ -71,14 +75,6 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
           ))}
         </div>
       ))}
-
-      <IonModal 
-        isOpen={!!selectedJournal} 
-        onDidDismiss={() => setSelectedJournal(null)}
-        className="book-view-modal"
-      >
-        {selectedJournal && <JournalBookView journal={selectedJournal} onClose={() => setSelectedJournal(null)} />}
-      </IonModal>
     </div>
   );
 };
