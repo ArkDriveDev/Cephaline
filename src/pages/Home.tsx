@@ -7,15 +7,7 @@ import JournalCards from '../components/JournalCards';
 import { Journal, NewJournalData } from '../types';
 
 const Home: React.FC = () => {
-  const [journals, setJournals] = useState<Journal[]>([
-    {
-      id: '1',
-      title: 'Programming 1',
-      subtitle: 'Fundamentals of Programming',
-      description: 'Basic programming concepts',
-      createdAt: new Date().toLocaleDateString()
-    }
-  ]);
+  const [journals, setJournals] = useState<Journal[]>([]);
 
   const handleAddJournal = (newJournal: NewJournalData) => {
     const journal: Journal = {
