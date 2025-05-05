@@ -25,22 +25,13 @@ const Home: React.FC = () => {
     const journal: Journal = {
       id: Date.now().toString(),
       title: newJournal.title,
-      subtitle: generateSubtitle(newJournal.title), // Helper function
       description: newJournal.description,
-      createdAt: new Date().toLocaleDateString()
+      createdAt: new Date().toLocaleDateString(),
+      cardColor: newJournal.cardColor,        // Add this
+      titleColor: newJournal.titleColor,      // Add this
+      descriptionColor: newJournal.descriptionColor // Add this
     };
     setJournals([...journals, journal]);
-  };
-
-  // Optional: Helper function to generate subtitles
-  const generateSubtitle = (title: string): string => {
-    const subtitles = [
-      `My thoughts on ${title}`,
-      `Exploring ${title}`,
-      `${title} journey`,
-      `Notes about ${title}`
-    ];
-    return subtitles[Math.floor(Math.random() * subtitles.length)];
   };
 
   return (
