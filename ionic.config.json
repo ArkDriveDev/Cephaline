@@ -1,0 +1,7 @@
+{
+  "name": "Cephaline",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
