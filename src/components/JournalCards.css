@@ -20,7 +20,6 @@
   .journal-card-wrapper {
     position: relative;
     transition: transform 0.2s ease;
-    /* Set fixed width for each card instead of flex:1 */
     width: calc((100% - 40px) / 3); /* Subtract gap space */
     min-width: 250px; /* Minimum card width */
   }

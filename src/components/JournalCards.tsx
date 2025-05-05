@@ -19,32 +19,35 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="journal-row">
           {row.map((journal, colIndex) => (
-            <div 
+            <div
               key={journal.id}
               className="journal-card-wrapper"
               style={{
                 zIndex: row.length - colIndex
               }}
             >
-              <IonCard className="journal-card">
+              <IonCard className="journal-card" style={{
+                backgroundColor: journal.cardColor,
+              }}>
                 <IonCardHeader>
-                  <IonCardTitle 
+                  <IonCardTitle
                     className="journal-title"
                     id={`hover-trigger-${journal.id}`}
+                    style={{ color: journal.titleColor }}
                   >
                     {journal.title}
                   </IonCardTitle>
-                  <IonPopover 
-                    trigger={`hover-trigger-${journal.id}`} 
-                    triggerAction="hover" 
+                  <IonPopover
+                    trigger={`hover-trigger-${journal.id}`}
+                    triggerAction="hover"
                     side="top"
                   >
                     <IonContent class="ion-padding">Click To Open Journal</IonContent>
                   </IonPopover>
                 </IonCardHeader>
-                
+
                 <IonCardContent className="journal-content">
-                  <p className="journal-description">
+                  <p className="journal-description" style={{ color: journal.descriptionColor }}>
                     {journal.description}
                   </p>
                   <small className="journal-date">
@@ -52,9 +55,9 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
                   </small>
                 </IonCardContent>
               </IonCard>
-              
+
               {/* Book spine effect */}
-              <div 
+              <div
                 className="journal-spine"
                 style={{
                   zIndex: row.length - colIndex - 1

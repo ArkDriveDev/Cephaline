@@ -11,13 +11,18 @@ import {
   IonInput, 
   IonTextarea, 
   IonItem, 
-  IonLabel 
+  IonLabel,
+  IonSelect,
+  IonSelectOption,
 } from '@ionic/react';
-import { bookOutline, close } from 'ionicons/icons';
+import { bookOutline, close, colorPalette } from 'ionicons/icons';
 
 interface NewJournalData {
   title: string;
   description: string;
+  titleColor: string;
+  descriptionColor: string;
+  cardColor: string;
 }
 
 interface NewButtonProps {
@@ -28,6 +33,9 @@ const NewButton: React.FC<NewButtonProps> = ({ onSave }) => {
   const [showModal, setShowModal] = useState(false);
   const [journalTitle, setJournalTitle] = useState('');
   const [journalDescription, setJournalDescription] = useState('');
+  const [titleColor, setTitleColor] = useState('#3880ff'); // Default Ionic primary
+  const [descriptionColor, setDescriptionColor] = useState('#555555');
+  const [cardColor, setCardColor] = useState('#ffffff');
 
   const handleSave = () => {
     if (!journalTitle.trim()) {
@@ -37,7 +45,10 @@ const NewButton: React.FC<NewButtonProps> = ({ onSave }) => {
 
     onSave({
       title: journalTitle,
-      description: journalDescription
+      description: journalDescription,
+      titleColor,
+      descriptionColor,
+      cardColor
     });
     
     // Reset form and close modal
@@ -45,6 +56,17 @@ const NewButton: React.FC<NewButtonProps> = ({ onSave }) => {
     setJournalDescription('');
     setShowModal(false);
   };
+
+  const colorOptions = [
+    { value: '#3880ff', name: 'Primary Blue' },
+    { value: '#3dc2ff', name: 'Light Blue' },
+    { value: '#2dd36f', name: 'Success Green' },
+    { value: '#ffc409', name: 'Warning Yellow' },
+    { value: '#eb445a', name: 'Danger Red' },
+    { value: '#92949c', name: 'Medium Gray' },
+    { value: '#555555', name: 'Dark Gray' },
+    { value: '#000000', name: 'Black' },
+  ];
 
   return (
     <>
@@ -106,6 +128,113 @@ const NewButton: React.FC<NewButtonProps> = ({ onSave }) => {
                 autoGrow
               />
             </IonItem>
+
+            {/* Color Customization Section */}
+            <div style={{ marginTop: '20px' }}>
+              <IonItem>
+                <IonLabel>Title Color</IonLabel>
+                <IonSelect 
+                  value={titleColor} 
+                  onIonChange={e => setTitleColor(e.detail.value)}
+                  interface="popover"
+                >
+                  {colorOptions.map(color => (
+                    <IonSelectOption key={color.value} value={color.value}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{
+                          width: '16px',
+                          height: '16px',
+                          backgroundColor: color.value,
+                          marginRight: '8px',
+                          border: '1px solid #ddd'
+                        }} />
+                        {color.name}
+                      </div>
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Description Color</IonLabel>
+                <IonSelect 
+                  value={descriptionColor} 
+                  onIonChange={e => setDescriptionColor(e.detail.value)}
+                  interface="popover"
+                >
+                  {colorOptions.map(color => (
+                    <IonSelectOption key={color.value} value={color.value}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{
+                          width: '16px',
+                          height: '16px',
+                          backgroundColor: color.value,
+                          marginRight: '8px',
+                          border: '1px solid #ddd'
+                        }} />
+                        {color.name}
+                      </div>
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Card Background</IonLabel>
+                <IonSelect 
+                  value={cardColor} 
+                  onIonChange={e => setCardColor(e.detail.value)}
+                  interface="popover"
+                >
+                  {colorOptions.concat([
+                    { value: '#ffffff', name: 'White' },
+                    { value: '#fff8e1', name: 'Warm White' },
+                    { value: '#f5f5f5', name: 'Light Gray' }
+                  ]).map(color => (
+                    <IonSelectOption key={color.value} value={color.value}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <div style={{
+                          width: '16px',
+                          height: '16px',
+                          backgroundColor: color.value,
+                          marginRight: '8px',
+                          border: '1px solid #ddd'
+                        }} />
+                        {color.name}
+                      </div>
+                    </IonSelectOption>
+                  ))}
+                </IonSelect>
+              </IonItem>
+            </div>
+
+            {/* Preview Section */}
+            <div style={{ 
+              marginTop: '30px',
+              padding: '15px',
+              backgroundColor: cardColor,
+              borderRadius: '8px',
+              borderLeft: '4px solid var(--ion-color-primary)',
+              boxShadow: '2px 2px 5px rgba(0,0,0,0.1)'
+            }}>
+              <h3 style={{ color: titleColor, margin: '0 0 10px 0' }}>
+                {journalTitle || 'Title Preview'}
+              </h3>
+              <p style={{ 
+                color: descriptionColor,
+                fontStyle: 'italic',
+                margin: '8px 0'
+              }}>
+                {journalDescription || 'Description preview text goes here...'}
+              </p>
+              <small style={{ 
+                color: '#888',
+                display: 'block',
+                textAlign: 'right'
+              }}>
+                Created: Just now
+              </small>
+            </div>
           </div>
         </IonContent>
       </IonModal>
