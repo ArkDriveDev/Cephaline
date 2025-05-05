@@ -1,13 +1,16 @@
-import React from 'react';
-import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPopover, IonContent } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPopover, IonContent, IonModal } from '@ionic/react';
 import { Journal } from '../types';
 import './JournalCards.css';
+import JournalBookView from '../pages/JournalBookView'; // We'll create this next
 
 interface JournalCardsProps {
   journals: Journal[];
 }
 
 const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
+  const [selectedJournal, setSelectedJournal] = useState<Journal | null>(null);
+
   // Split journals into rows of 3
   const rows = [];
   for (let i = 0; i < journals.length; i += 3) {
@@ -25,6 +28,7 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
               style={{
                 zIndex: row.length - colIndex
               }}
+              onClick={() => setSelectedJournal(journal)}
             >
               <IonCard className="journal-card" style={{
                 backgroundColor: journal.cardColor,
@@ -67,6 +71,14 @@ const JournalCards: React.FC<JournalCardsProps> = ({ journals }) => {
           ))}
         </div>
       ))}
+
+      <IonModal 
+        isOpen={!!selectedJournal} 
+        onDidDismiss={() => setSelectedJournal(null)}
+        className="book-view-modal"
+      >
+        {selectedJournal && <JournalBookView journal={selectedJournal} onClose={() => setSelectedJournal(null)} />}
+      </IonModal>
     </div>
   );
 };

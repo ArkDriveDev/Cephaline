@@ -7,7 +7,7 @@ export interface Journal {
   descriptionColor: string;
   createdAt: string;
   updatedAt?: string;
-  content?: string; // Add this if you want full journal content
+  content?: string; 
 }
 
 export interface NewJournalData {
