@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width:2000px;
+    max-width: 2000px;
     margin-right: auto;
     margin-left: 0;
   }
@@ -12,19 +12,20 @@
     display: flex;
     gap: 20px;
     position: relative;
+    /* Add these to prevent row stretching */
+    width: 100%;
+    justify-content: flex-start;
   }
   
   .journal-card-wrapper {
     position: relative;
     transition: transform 0.2s ease;
-    flex: 1;
-    min-width: 0; /* Allows cards to shrink properly */
+    /* Set fixed width for each card instead of flex:1 */
+    width: calc((100% - 40px) / 3); /* Subtract gap space */
+    min-width: 250px; /* Minimum card width */
   }
   
-  .journal-card-wrapper:hover {
-    transform: translateX(8px);
-  }
-  
+  /* Keep all other styles the same */
   .journal-card {
     margin: 0;
     border-radius: 0 8px 8px 0;
@@ -32,6 +33,7 @@
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     height: 100%;
   }
+  
   
   .journal-title {
     font-size: 1.2rem;
